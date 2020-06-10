@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 var matchSchema = mongoose.Schema({
-    matchId: {type: String},
+    matchId: {type: String, unique: true},
     date: {type: String},
     team1: {type: Object},
     team2: {type: Object},
@@ -9,8 +9,9 @@ var matchSchema = mongoose.Schema({
     event: {type: Object, required: false},
     map: {type: Array, required: false},
     stars: {type: String, required: false},
-    status: {type: String, required: false},
-    result: {type: String, required: false}
+    status: {type: String},
+    live: {type: String},
+    result: {type: String, required: false, default: 'unfinished'}
 })
 
-module.exports = mongoose.model('match', matchSchema)
+module.exports = mongoose.model('Match', matchSchema)

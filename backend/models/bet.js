@@ -12,4 +12,4 @@ var betSchema = mongoose.Schema({
     result: {type: String}
 })
 
-module.exports = mongoose.model('bet', betSchema)
+module.exports = mongoose.model('Bet', betSchema)
