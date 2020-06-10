@@ -27,4 +27,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(matchRoutes)
+
+
 module.exports = app;
