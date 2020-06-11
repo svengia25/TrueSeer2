@@ -1,0 +1,7 @@
+<mat-card style="margin:2em;" *ngFor="let match of matches.sort(sortDate)" >
+    {{ match.team1.name }} vs
+    {{ match.team2.name }}
+
+    {{ match.date | date:'shortTime'}}
+</mat-card>
+

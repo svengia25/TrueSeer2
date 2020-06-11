@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 var matchSchema = mongoose.Schema({
     matchId: {type: String, unique: true},
-    date: {type: String},
+    date: {type: String, required: false, default: "Live!"},
     team1: {type: Object},
     team2: {type: Object},
     format: {type: String, required: false},

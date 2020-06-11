@@ -33,8 +33,10 @@ router.post('/api/user/signup', (req, res, next) =>{
 
 
 router.post('/api/user/login', (req, res, next) => {
+    var fetchedUser;
     user.findOne({ email: req.body.email})
     .then( user => {
+        fetchedUser = user;
         if(!user) {
             return res.status(401).json({
                 message: 'Auth failed'
@@ -49,8 +51,8 @@ router.post('/api/user/login', (req, res, next) => {
         }
 
         const token = jwt.sign({
-            email: user.email,
-            userId: user._id
+            email: fetchedUser.email,
+            userId: fetchedUser._id
         }, '2efbnm3598fn13fb0824f10ig2',
         {expiresIn: "1h"})
         res.status(200).json({
