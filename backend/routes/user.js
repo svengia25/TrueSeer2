@@ -34,8 +34,9 @@ router.post('/api/user/signup', (req, res, next) =>{
 
 router.post('/api/user/login', (req, res, next) => {
     var fetchedUser;
-    user.findOne({ email: req.body.email})
+    User.findOne({ email: req.body.email})
     .then( user => {
+        console.log(user)
         fetchedUser = user;
         if(!user) {
             return res.status(401).json({
@@ -55,7 +56,7 @@ router.post('/api/user/login', (req, res, next) => {
             userId: fetchedUser._id
         }, '2efbnm3598fn13fb0824f10ig2',
         {expiresIn: "1h"})
-        res.status(200).json({
+        return res.status(200).json({
             token: token
         })
     })
@@ -65,5 +66,6 @@ router.post('/api/user/login', (req, res, next) => {
         })
     })
 })
+
 
 module.exports = router;

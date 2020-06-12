@@ -3,6 +3,7 @@ const parse = require('body-parser');
 const mongoose = require('mongoose');
 
 const matchRoutes = require('./routes/matches')
+const userRoutes = require('./routes/user')
 
 const Match = require('./models/match');
 const { HLTV } = require('hltv');
@@ -35,7 +36,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(matchRoutes)
 
 const updateMatches = HLTV.getMatches().then((res) =>{
                 
@@ -57,7 +57,6 @@ const updateMatches = HLTV.getMatches().then((res) =>{
                 result: 'unfinished'
             }
             Match.updateOne({matchId: match.matchId}, match, {upsert: true}).then((res)=>{
-                console.log(res)
             })
         }
     }
@@ -67,10 +66,13 @@ const updateResults = HLTV.getResults({pages: 1}).then((res)=> {
     for(i=0; i<res.length; i++){
         var obj = res[i];
         Match.updateOne({matchId: obj.id}, {live: 'finished', result: obj.result}).then((res) =>{
-            console.log(res)
         })
     }
 })
 
+
+app.use(matchRoutes)
+
+app.use(userRoutes)
 
 module.exports = app;
