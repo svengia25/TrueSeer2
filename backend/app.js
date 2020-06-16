@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const matchRoutes = require('./routes/matches')
 const userRoutes = require('./routes/user')
+const betRoutes = require('./routes/bets')
 
 const Match = require('./models/match');
 const { HLTV } = require('hltv');
@@ -28,6 +29,10 @@ mongoose.connect('mongodb+srv://akhayat:3dowjzLYvq2mAzZr@ngapp-dxob4.mongodb.net
 
 
 app.use(parse.json());
+
+app.use(parse.urlencoded({
+    extended: true
+  }));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin','*')
@@ -72,7 +77,7 @@ const updateResults = HLTV.getResults({pages: 1}).then((res)=> {
 
 
 app.use(matchRoutes)
-
+app.use(betRoutes)
 app.use(userRoutes)
 
 module.exports = app;

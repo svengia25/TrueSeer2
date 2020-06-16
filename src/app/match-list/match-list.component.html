@@ -1,7 +1,8 @@
-<mat-card style="margin:2em;" *ngFor="let match of matches.sort(sortDate)" >
+<mat-card style="margin:2em;" *ngFor="let match of matches.sort(sortDate)" (click)="getItems(match)">
     {{ match.team1.name }} vs
     {{ match.team2.name }}
 
     {{ match.date | date:'shortTime'}}
+    <button mat-raised-button (click)=openDialog()>Click me</button>
 </mat-card>
 

@@ -8,10 +8,11 @@ const checkAuth = require('../middleware/check-auth')
 
 const router = express.Router();
 
-router.post('/api/bet', checkAuth, (req, res, next) => {
+router.post('/api/bet', (req, res, next) => {
     let q = req.body
+    console.log(req.body)
     const bet = new Bet({
-        userId: req.userData.userId,
+        userId: '5ee2b909ca9e910fd897770e',
         matchId: q.matchId,
         team1: q.team1,
         team2: q.team2,
@@ -35,7 +36,7 @@ router.post('/api/bet', checkAuth, (req, res, next) => {
     })
 })
 
-router.get('api/bets', checkAuth, (req, res, next) => {
+router.get('/api/bets', (req, res, next) => {
     Bet.find({ userId: req.userData.userId})
     .then( result => {
         res.status(201).json({
@@ -56,7 +57,7 @@ router.put("/api/bets/:id", (req, res, next) => {
 })
 
 router.delete("api/bets/:id", (req, res, next) => {
-    Bet.deleteOne( {_id = req.params.id})
+    Bet.deleteOne({_id: req.params.id})
     .then( result => {
         res.status(201).json({
             result: result

@@ -33,7 +33,7 @@ export class AuthService{
         .subscribe(response => {
             const token = response.token
             this.token = token;
-            this.authStatusListener.next(true)
+            this.authStatusListener.next(true);
         })
     }
 }

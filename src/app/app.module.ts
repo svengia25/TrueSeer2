@@ -2,16 +2,19 @@ import { AuthInterceptor } from './services/auth-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';;
-import { MatchListComponent } from './match-list/match-list.component';
+import { MatchListComponent, MatchListDialog } from './match-list/match-list.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule } from '@angular/material'
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
+import { BetListComponent } from './bet-list/bet-list.component'
 
 
 @NgModule({
@@ -20,7 +23,9 @@ import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatEx
     HeaderComponent,
     MatchListComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    BetListComponent,
+    MatchListDialog
   ],
   imports: [
     BrowserModule,
@@ -34,9 +39,13 @@ import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatEx
     MatExpansionModule,
     MatProgressSpinnerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatDialogModule,
+        
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MatchListDialog]
 })
 export class AppModule { }
