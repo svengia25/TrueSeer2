@@ -5,7 +5,10 @@
     <span class="spacer"></span>
     <ul>
       <li *ngIf="userIsAuthenticated">
-        <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
+        <a mat-button routerLink="/bets" routerLinkActive="mat-accent">Your Bets</a>
+      </li>
+      <li *ngIf="userIsAuthenticated">
+        <a mat-button routerLink="/matches" routerLinkActive="mat-accent">Upcoming Matches</a>
       </li>
       <li *ngIf="!userIsAuthenticated">
         <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>

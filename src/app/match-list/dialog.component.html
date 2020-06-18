@@ -1,0 +1,23 @@
+<form #betForm="ngForm" (submit)="addBet(betForm)">
+    <mat-form-field>
+        <input matInput type='text' name='team1' [ngModel]=data.team1.name required placeholder="First Team Name" #team1="ngModel">
+        <mat-error *ngIf="team1.invalid">{{"Please enter a Team name"}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type='text' name='team2' [ngModel]=data.team2.name required placeholder="Second Team Name" #team2="ngModel">
+        <mat-error *ngIf="team2.invalid">{{"Please enter a Team name"}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type='text' name='prop' [ngModel]=data.prop required placeholder="Bet Prop" #team2="ngModel">
+        <mat-error *ngIf="team2.invalid">{{"Please enter a Bet proposition"}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type='text' name='amount' [ngModel]=data.amount required placeholder="Wager Amount" #amount="ngModel">
+        <mat-error *ngIf="team2.invalid">{{"Please enter the Bet amount"}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type='text' name='odds' [ngModel]=data.odds required placeholder="Bet Odds" #odds="ngModel">
+        <mat-error *ngIf="team2.invalid">{{"Please enter the bet's Odds"}}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Add Bet</button>
+</form>

@@ -1,0 +1,42 @@
+.block {
+    display: block;
+    margin: 2px 5px;
+    height: 10px;
+    
+}
+
+.inline {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: 1%;
+}
+
+.team1 {
+    // background-color: red;
+    width: 30%;
+}
+
+.vs {
+    // background-color: green;
+    width: 5%;
+}
+
+.team2 {
+    // background-color: red;
+    width: 30%;
+}
+
+.time {
+    // background-color: green;
+    width: 15%;
+}
+
+button {
+    border: 0px;
+    background-color: lightgrey;
+}
+
+.right {
+    float: right;
+}

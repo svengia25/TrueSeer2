@@ -1,7 +1,10 @@
+import { BetService } from './../services/bet.service';
 import { MatchService } from './../services/match.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Match } from '../models/match.model';
 import {MatDialog, MatDialogConfig} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -32,10 +35,14 @@ export class MatchListComponent implements OnInit {
    return a.date-b.date;
   };
   
-  openDialog(){
+  openDialog(match){
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.autoFocus = true;
+
+    dialogConfig.data = match;
+
+    console.log(dialogConfig.data)
 
     this.dialog.open(MatchListDialog, dialogConfig)
 
@@ -50,6 +57,28 @@ export class MatchListComponent implements OnInit {
 })
 export class MatchListDialog {
 
-  constructor() {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private BetService: BetService, public dialogRef: MatDialogRef<MatchListDialog>) {}
 
+  onSave(data){
+
+    this.dialogRef.close()
+  }
+
+  addBet(form: NgForm){
+    let formData = form.value;
+    if(form.invalid){
+      return
+    } else {
+      this.BetService.placeBet({
+          userId: '5ee2b909ca9e910fd897770e',
+          matchId: this.data.matchId,
+          team1: formData.team1,
+          team2: formData.team2,
+          prop: formData.prop,
+          amount: formData.amount,
+          odds: formData.odds,
+      })
+    }
+
+  }
 }

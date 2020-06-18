@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.post('/api/bet', (req, res, next) => {
     let q = req.body
-    console.log(req.body)
     const bet = new Bet({
         userId: '5ee2b909ca9e910fd897770e',
         matchId: q.matchId,
@@ -30,6 +29,7 @@ router.post('/api/bet', (req, res, next) => {
         })
     })
     .catch(err => {
+        console.log(err)
         res.status(500).json({
             error: err
         })
@@ -37,11 +37,9 @@ router.post('/api/bet', (req, res, next) => {
 })
 
 router.get('/api/bets', (req, res, next) => {
-    Bet.find({ userId: req.userData.userId})
+    Bet.find({ userId: '5ee2b909ca9e910fd897770e'})
     .then( result => {
-        res.status(201).json({
-            result: result
-        })
+        res.status(201).json(result)
     })
     .catch(err => {
         res.status(500).json({

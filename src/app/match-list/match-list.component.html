@@ -1,8 +1,18 @@
-<mat-card style="margin:2em;" *ngFor="let match of matches.sort(sortDate)" (click)="getItems(match)">
-    {{ match.team1.name }} vs
-    {{ match.team2.name }}
-
-    {{ match.date | date:'shortTime'}}
-    <button mat-raised-button (click)=openDialog()>Click me</button>
-</mat-card>
-
+    <mat-card class="block" fxFlexAlign="stretch" *ngFor="let match of matches.sort(sortDate)">
+        <div>
+        <div class="inline team1">
+            {{ match.team1.name }}
+        </div>
+        <div class="inline vs">
+            vs
+        </div>
+        <div class="inline team2">
+            {{ match.team2.name }}
+        </div>
+        <div class="inline time">
+            {{ match.date | date:'shortTime' }}
+        </div>
+            <button class="fa fa-plus inline right" aria-hidden="true" (click)=openDialog(match)></button>
+            <button class="fa fa-info inline right" aria-hidden="true" (click)=openDialog(match)></button>
+        </div>
+    </mat-card>

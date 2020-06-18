@@ -9,13 +9,13 @@ import { Observable } from 'rxjs'
 })
 export class BetService {
 
-  constructor(private http: HttpClient, ) { }
+  constructor(private HttpClient: HttpClient, ) { }
 
   placeBet(bet: Bet){
-    return this.http.post<Bet[]>('http://localhost:3000/api/bet', bet)
+    this.HttpClient.post<Bet[]>('http://localhost:3000/api/bet', bet)
   }
 
-  getBets() {
-    return this.http.get('http://localhost:3000/api/bet')
+  getBets(): Observable<Bet[]>{
+    return this.HttpClient.get<Bet[]>('http://localhost:3000/api/bets')
   }
 }
