@@ -8,10 +8,10 @@ const checkAuth = require('../middleware/check-auth')
 
 const router = express.Router();
 
-router.post('/api/bet', (req, res, next) => {
+router.post('/api/bet', checkAuth, (req, res, next) => {
     let q = req.body
     const bet = new Bet({
-        userId: '5ee2b909ca9e910fd897770e',
+        userId: req.userData.userId,
         matchId: q.matchId,
         team1: q.team1,
         team2: q.team2,
@@ -20,7 +20,7 @@ router.post('/api/bet', (req, res, next) => {
         odds: q.odds,
         result: q.result
     })
-
+    console.log(bet)
     bet.save()
     .then( result => {
         res.status(201).json({
@@ -36,8 +36,8 @@ router.post('/api/bet', (req, res, next) => {
     })
 })
 
-router.get('/api/bets', (req, res, next) => {
-    Bet.find({ userId: '5ee2b909ca9e910fd897770e'})
+router.get('/api/bets', checkAuth, (req, res, next) => {
+    Bet.find({ userId: req.userData.userId})
     .then( result => {
         res.status(201).json(result)
     })
@@ -54,8 +54,8 @@ router.put("/api/bets/:id", (req, res, next) => {
     })
 })
 
-router.delete("api/bets/:id", (req, res, next) => {
-    Bet.deleteOne({_id: req.params.id})
+router.delete("api/bets/:id", checkAuth, (req, res, next) => {
+    Bet.deleteOne({_id: req.params.id, userId: req.userData.UserId})
     .then( result => {
         res.status(201).json({
             result: result

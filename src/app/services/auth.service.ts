@@ -47,7 +47,8 @@ export class AuthService{
                 const now = new Date();
                 const expirationDate = new Date(now.getTime() + expiresIn * 1000);
                 this.saveAuthData(token, expirationDate)
-                this.router.navigate(['bets'])
+                this.router.navigate(['/bets'])
+                console.log(this.isAuthenticated)
             }
         })
     }
@@ -72,7 +73,7 @@ export class AuthService{
         this.isAuthenticated = false;
         this.authStatusListener.next(false);
         clearTimeout(this.tokenTimer)
-        this.clearAuthData;
+        this.clearAuthData();
         this.router.navigate(['/'])
     }
 

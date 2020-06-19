@@ -9,10 +9,13 @@
         <div class="inline team2">
             {{ match.team2.name }}
         </div>
-        <div class="inline time">
+        <div class="inline time" *ngIf="match.date == undefined">
+            Live!
+        </div>
+        <div class="inline time" *ngIf="match.date != undefined">
             {{ match.date | date:'shortTime' }}
         </div>
-            <button class="fa fa-plus inline right" aria-hidden="true" (click)=openDialog(match)></button>
+            <button class="fa fa-plus inline right" *ngIf="userIsAuthenticated" aria-hidden="true" (click)=openDialog(match)></button>
             <button class="fa fa-info inline right" aria-hidden="true" (click)=openDialog(match)></button>
         </div>
     </mat-card>

@@ -1,5 +1,5 @@
 export interface Bet {
-    userId: String,
+    userId?: String,
     matchId: String,
     team1: String,
     team2: String,

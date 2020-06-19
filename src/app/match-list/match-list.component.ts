@@ -1,3 +1,5 @@
+import { AuthService } from './../services/auth.service';
+import { Subscription } from 'rxjs';
 import { BetService } from './../services/bet.service';
 import { MatchService } from './../services/match.service';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -16,21 +18,29 @@ import { NgForm } from '@angular/forms';
 })
 export class MatchListComponent implements OnInit {
   matches: Match[];
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
 
-  constructor(public MatchService: MatchService, private dialog: MatDialog){ }
+  constructor(public MatchService: MatchService, private dialog: MatDialog,  private authService: AuthService){ }
 
   ngOnInit() {
     this.MatchService.getMatches().subscribe(res => {
       this.matches = res;
     });
+    this.userIsAuthenticated = this.authService.getAuthStatus();
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    })
+  }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
   }
 
   sortDate(a,b){
     if(a.date == null){
-      
     }
     if(b.date == null){
-      
     }
    return a.date-b.date;
   };
@@ -41,8 +51,6 @@ export class MatchListComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = match;
-
-    console.log(dialogConfig.data)
 
     this.dialog.open(MatchListDialog, dialogConfig)
 
@@ -55,9 +63,10 @@ export class MatchListComponent implements OnInit {
   templateUrl: 'dialog.component.html',
   styleUrls: ['dialog.component.scss']
 })
-export class MatchListDialog {
+export class MatchListDialog{
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private BetService: BetService, public dialogRef: MatDialogRef<MatchListDialog>) {}
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private betService: BetService, public dialogRef: MatDialogRef<MatchListDialog>) {}
 
   onSave(data){
 
@@ -69,8 +78,7 @@ export class MatchListDialog {
     if(form.invalid){
       return
     } else {
-      this.BetService.placeBet({
-          userId: '5ee2b909ca9e910fd897770e',
+      this.betService.placeBet({
           matchId: this.data.matchId,
           team1: formData.team1,
           team2: formData.team2,
