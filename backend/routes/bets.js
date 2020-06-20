@@ -3,6 +3,7 @@ const express = require('express');
 const Bet = require('../models/bet');
 
 const checkAuth = require('../middleware/check-auth')
+const Match = require('../models/bet')
 
 
 

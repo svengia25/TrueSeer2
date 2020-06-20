@@ -6,6 +6,7 @@ const matchRoutes = require('./routes/matches')
 const userRoutes = require('./routes/user')
 const betRoutes = require('./routes/bets')
 
+const Bet = require('./models/bet');
 const Match = require('./models/match');
 const { HLTV } = require('hltv');
 
@@ -20,7 +21,8 @@ mongoose.connect('mongodb+srv://akhayat:3dowjzLYvq2mAzZr@ngapp-dxob4.mongodb.net
         setInterval(function() {
             updateMatches
             updateResults
-        }, 2500000)
+            updateBetResults
+        }, 300000)
 
     })
     .catch((error) => {
@@ -73,6 +75,18 @@ const updateResults = HLTV.getResults({pages: 1}).then((res)=> {
         Match.updateOne({matchId: obj.id}, {live: 'finished', result: obj.result}).then((res) =>{
         })
     }
+})
+
+const updateBetResults = Bet.find({}).then(result => {
+    result.map( x => {
+        Match.find({ matchId: x.matchId }).then( response => {
+            console.log(response[0].result)
+            x.result = response.result;
+            Bet.updateOne({ _id: x._id }, x).then( res => {
+                // console.log(res)
+            })
+        })
+    })
 })
 
 

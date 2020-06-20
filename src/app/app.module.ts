@@ -1,3 +1,4 @@
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,8 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
 import { BetListComponent } from './bet-list/bet-list.component'
+import { ErrorInterceptor } from './services/error-interceptor';
+
 
 
 @NgModule({
@@ -42,9 +45,12 @@ import { BetListComponent } from './bet-list/bet-list.component'
     ReactiveFormsModule,
     MatTableModule,
     MatDialogModule,
-        
+    MatSnackBarModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [MatchListDialog]
 })

@@ -70,11 +70,12 @@ export class MatchListDialog{
 
   onSave(data){
 
-    this.dialogRef.close()
+    
   }
 
   addBet(form: NgForm){
     let formData = form.value;
+    this.dialogRef.close()
     if(form.invalid){
       return
     } else {
