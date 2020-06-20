@@ -1,3 +1,6 @@
+
+    <mat-card class="center">
+      <mat-card-title>Your Bet History</mat-card-title>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -36,5 +39,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <div *ngIf='!tempData' style="margin-top: 20px;"> No Bets to Show!</div>
+  <mat-paginator 
+  [pageSizeOptions]="[10,15,20]"
+  showFirstLastButtons>
+</mat-paginator>
+</mat-card>
   
   

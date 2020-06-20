@@ -11,10 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';;
-import { MatchListComponent, MatchListDialog } from './match-list/match-list.component';
+import { MatchListComponent, MatchListAddDialog, MatchListInfoDialog } from './match-list/match-list.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatDialogModule, MatPaginatorModule } from '@angular/material';
 import { BetListComponent } from './bet-list/bet-list.component'
 import { ErrorInterceptor } from './services/error-interceptor';
 
@@ -28,7 +28,8 @@ import { ErrorInterceptor } from './services/error-interceptor';
     SignupComponent,
     LoginComponent,
     BetListComponent,
-    MatchListDialog
+    MatchListAddDialog,
+    MatchListInfoDialog
   ],
   imports: [
     BrowserModule,
@@ -45,13 +46,14 @@ import { ErrorInterceptor } from './services/error-interceptor';
     ReactiveFormsModule,
     MatTableModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatPaginatorModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [MatchListDialog]
+  entryComponents: [MatchListAddDialog, MatchListInfoDialog]
 })
 export class AppModule { }

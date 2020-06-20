@@ -17,6 +17,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./match-list.component.scss']
 })
 export class MatchListComponent implements OnInit {
+  isLoading = true;
   matches: Match[];
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
@@ -26,6 +27,7 @@ export class MatchListComponent implements OnInit {
   ngOnInit() {
     this.MatchService.getMatches().subscribe(res => {
       this.matches = res;
+      this.isLoading = false;
     });
     this.userIsAuthenticated = this.authService.getAuthStatus();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
@@ -52,26 +54,33 @@ export class MatchListComponent implements OnInit {
 
     dialogConfig.data = match;
 
-    this.dialog.open(MatchListDialog, dialogConfig)
+    this.dialog.open(MatchListAddDialog, dialogConfig)
 
+  }
+
+  test(match){
+    console.log(match)
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = match;
+
+    this.dialog.open(MatchListInfoDialog, dialogConfig)
   }
 }
 
 
 @Component({
-  selector: 'match-list-dialog',
-  templateUrl: 'dialog.component.html',
-  styleUrls: ['dialog.component.scss']
+  selector: 'match-list-add-dialog',
+  templateUrl: 'dialogAdd.component.html',
+  styleUrls: ['dialogAdd.component.scss']
 })
-export class MatchListDialog{
+export class MatchListAddDialog{
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private betService: BetService, public dialogRef: MatDialogRef<MatchListDialog>) {}
-
-  onSave(data){
-
-    
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private betService: BetService, public dialogRef: MatDialogRef<MatchListAddDialog>) {}
 
   addBet(form: NgForm){
     let formData = form.value;
@@ -90,4 +99,16 @@ export class MatchListDialog{
     }
 
   }
+}
+
+@Component({
+  selector: 'match-list-info-dialog',
+  templateUrl: 'dialogInfo.component.html',
+  styleUrls: ['dialogInfo.component.scss']
+})
+export class MatchListInfoDialog{
+
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private betService: BetService, public dialogRef: MatDialogRef<MatchListInfoDialog>) {}
+
 }

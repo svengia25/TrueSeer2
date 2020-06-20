@@ -22,6 +22,7 @@ mongoose.connect('mongodb+srv://akhayat:3dowjzLYvq2mAzZr@ngapp-dxob4.mongodb.net
             updateMatches
             updateResults
             updateBetResults
+            console.log( Date.now)
         }, 300000)
 
     })
@@ -80,10 +81,8 @@ const updateResults = HLTV.getResults({pages: 1}).then((res)=> {
 const updateBetResults = Bet.find({}).then(result => {
     result.map( x => {
         Match.find({ matchId: x.matchId }).then( response => {
-            console.log(response[0].result)
             x.result = response.result;
             Bet.updateOne({ _id: x._id }, x).then( res => {
-                // console.log(res)
             })
         })
     })

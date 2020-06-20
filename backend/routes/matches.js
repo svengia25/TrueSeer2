@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/api/matches', (req, res, next) => {
 
     Match.find({result: 'unfinished'}).then((docs) => {
-        const newDocs = docs.filter(obj => obj.date < (Date.now()+50000000))
+        const newDocs = docs.filter(obj => obj.date < (Date.now()+50000000) && obj.date > Date.now() || obj.date == null)
         res.status(201).json(newDocs)
     })
 

@@ -1,8 +1,9 @@
-import { Subscription } from 'rxjs';
+import { MatPaginator } from '@angular/material';
 import { AuthService } from './../services/auth.service';
 import { BetService } from './../services/bet.service';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import { Bet } from '../models/bet.model'
 
 @Component({
   selector: 'app-bet-list',
@@ -11,9 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 
-export class BetListComponent {
+export class BetListComponent implements OnInit{
 
   displayedColumns: string[] = ['date', 'teams', 'prop', 'amount', 'odds', 'result'];
+  tempData;
   dataSource;
   isLoading = false;
   userIsAuthenticated = false;
@@ -22,11 +24,14 @@ export class BetListComponent {
     private authService: AuthService){
   }
 
+ @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   ngOnInit(){
     this.betService.getBets().subscribe(res => {
-      this.dataSource = res;
-    })
-    
+      this.tempData = res;
+      this.dataSource = new MatTableDataSource<any[]>(this.tempData);
+      this.dataSource.paginator = this.paginator;
+    })    
   }
 
   

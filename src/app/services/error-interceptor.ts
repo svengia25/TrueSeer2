@@ -15,13 +15,13 @@ export class ErrorInterceptor implements HttpInterceptor {
             catchError((err: HttpErrorResponse) => {
                 if(err.error.message == undefined) {
                     this._snackBar.open(err.error.error.message, 'Dismiss', {
-                        duration: 2000,
+                        duration: 4000,
                       })
                     return throwError(err);
                 }
                 console.log(err.error.message)
                 this._snackBar.open(err.error.message, 'Dismiss', {
-                    duration: 2000,
+                    duration: 4000,
                   })
                 return throwError(err);
             })

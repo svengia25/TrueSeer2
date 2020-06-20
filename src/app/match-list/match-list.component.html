@@ -1,21 +1,31 @@
-    <mat-card class="block" fxFlexAlign="stretch" *ngFor="let match of matches.sort(sortDate)">
-        <div>
-        <div class="inline team1">
-            {{ match.team1.name }}
-        </div>
-        <div class="inline vs">
-            vs
-        </div>
-        <div class="inline team2">
-            {{ match.team2.name }}
-        </div>
-        <div class="inline time" *ngIf="match.date == undefined">
-            Live!
-        </div>
-        <div class="inline time" *ngIf="match.date != undefined">
-            {{ match.date | date:'shortTime' }}
-        </div>
-            <button class="fa fa-plus inline right" *ngIf="userIsAuthenticated" aria-hidden="true" (click)=openDialog(match)></button>
-            <button class="fa fa-info inline right" aria-hidden="true" (click)=openDialog(match)></button>
-        </div>
+    
+    
+    <mat-card class="center">
+        <mat-card-title>Upcoming and Live Matches</mat-card-title>
+        <mat-card-subtitle *ngIf="!matches">No Games to Display!</mat-card-subtitle>
+            <mat-card class="block" fxFlexAlign="stretch" *ngFor="let match of matches.sort(sortDate)">
+                <div>
+                <div class="inline team1">
+                    {{ match.team1.name }}
+                </div>
+                <div class="inline vs">
+                    vs
+                </div>
+                <div class="inline team2">
+                    {{ match.team2.name }}
+                </div>
+                <div class="inline time" *ngIf="match.date == undefined">
+                    Live!
+                </div>
+                <div class="inline time" *ngIf="match.date != undefined">
+                    {{ match.date | date:'dd/MM' }} @
+                    {{ match.date | date:'shortTime' }}
+                </div>
+                    <button class="fa fa-plus inline right" *ngIf="userIsAuthenticated" aria-hidden="true" (click)=openDialog(match)></button>
+                    <button class="fa fa-info inline right" aria-hidden="true" (click)=test(match)></button>
+                </div>
+            </mat-card>
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
     </mat-card>
+    
+

@@ -1,0 +1,17 @@
+.center {
+    // margin: 0 auto;
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%); 
+}
+
+.block {
+    display: block;
+}
+
+button {
+    margin-top: 5px;
+}
+
